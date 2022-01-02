@@ -2,7 +2,8 @@ import repositoryContacts from '../../repository/repository-contacts'
 import { HttpCode, ERROR } from '../../libs/constants';
 
 const getContacts = async (req, res, next) => {
-  const contacts = await repositoryContacts.listContacts(req.query);
+  const { id: userId } = req.user;
+  const contacts = await repositoryContacts.listContacts(userId, req.query);
   res.status(HttpCode.OK).json({
     status: 'success',
     code: HttpCode.OK,
@@ -12,7 +13,8 @@ const getContacts = async (req, res, next) => {
 
 const getContactById = async (req, res, next) => {
   const { id } = req.params;
-  const contact = await repositoryContacts.getContactById(id);
+  const { id: userId } = req.user;
+  const contact = await repositoryContacts.getContactById(userId, id);
   contact ?
     res.status(HttpCode.OK).json({
       status: 'success',
@@ -23,7 +25,8 @@ const getContactById = async (req, res, next) => {
 };
 
 const getAddContact = async (req, res, next) => {
-  const newContact = await repositoryContacts.addContact(req.body);
+  const { id: userId } = req.user;
+  const newContact = await repositoryContacts.addContact(userId, req.body);
   res.status(HttpCode.CREATED).json({
     status: 'success',
       code: HttpCode.CREATED,
@@ -33,7 +36,8 @@ const getAddContact = async (req, res, next) => {
 
 const getRemoveContact = async (req, res, next) => {
   const { id } = req.params;
-  const contact = await repositoryContacts.removeContact(id)
+  const { id: userId } = req.user;
+  const contact = await repositoryContacts.removeContact(userId, id)
   contact ?
     res.status(HttpCode.OK).json({
       status: 'success',
@@ -45,7 +49,8 @@ const getRemoveContact = async (req, res, next) => {
 
 const getUpdateContact = async (req, res, next) => {
   const { id } = req.params;
-  const contact = await repositoryContacts.updateContact(id, req.body);
+  const { id: userId } = req.user;
+  const contact = await repositoryContacts.updateContact(userId, id, req.body);
   contact ?
     res.status(HttpCode.OK).json({
       status: 'success',
