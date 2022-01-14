@@ -2,8 +2,9 @@ import express from 'express';
 import logger from 'morgan';
 import cors from 'cors';
 
-import contactsRouter from './routes/api/contacts/router-contacts';
 import { ERROR, HttpCode } from './libs/constants';
+import contactsRouter from './routes/api/contacts/router-contacts';
+import authRouter from './routes/api/auth/routes-auth';
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/api/contacts', contactsRouter)
+app.use('/api/auth', authRouter)
 
 app.use((req, res) => {
   res.status(HttpCode.NOT_FOUND).json(ERROR)

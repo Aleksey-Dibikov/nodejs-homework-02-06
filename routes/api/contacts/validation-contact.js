@@ -31,7 +31,7 @@ const querySchema = Joi.object({
         .optional(),
     filter: Joi.string()
         // eslint-disable-next-line-prefer-regex-literals
-        .pattern(new RegExp('(name|email|phone)\\|?(name|email|phone)+'))
+        // .pattern(new RegExp('(name|email|phone)\\|?(name|email|phone)+'))
         .optional(),
 });
 
@@ -96,7 +96,7 @@ export const validateQuery = async (req, res, next) => {
             .json({
             status: 'error',
                 code: HttpCode.BAD_REQUEST,
-            message: `Field ${err.message.replace(/"/g, '')}`
+            message: `Field ${err.message.replace(/"/g, "")}`
         })
     }
     next();
