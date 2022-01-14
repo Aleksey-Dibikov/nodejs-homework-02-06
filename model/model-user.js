@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import gravatar from 'gravatar';
 import { Role } from '../libs/constants';
 
 const { Schema, model } = mongoose;
@@ -30,6 +31,16 @@ const userSchema = new Schema({
         type: String,
         default: null,
     },
+    avatar: {
+        type: String,
+        default: function () {
+            return gravatar.url(
+                this.email,
+                { s: '250' },
+                true,
+            )
+        },
+    }
 }, { versionKey: false, timestamps: true });
 
 userSchema.pre('save', async function (next) {
