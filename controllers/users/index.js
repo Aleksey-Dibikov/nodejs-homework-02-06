@@ -8,7 +8,7 @@ import {
 
 const uploadAvatar = async (req, res, next) => {
     const uploadService = new UploadFileService(
-        LocalFileService,
+        CloudFileService,
         req.file,
         req.user,
     )

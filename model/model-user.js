@@ -40,7 +40,11 @@ const userSchema = new Schema({
                 true,
             )
         },
-    }
+    },
+    idAvatarCloud: {
+        type: String,
+        default: null,
+    },
 }, { versionKey: false, timestamps: true });
 
 userSchema.pre('save', async function (next) {
