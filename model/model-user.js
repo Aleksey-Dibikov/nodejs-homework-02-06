@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { randomUUID } from 'crypto'
 import bcrypt from 'bcryptjs';
 import gravatar from 'gravatar';
 import { Role } from '../libs/constants';
@@ -45,7 +46,16 @@ const userSchema = new Schema({
         type: String,
         default: null,
     },
-}, { versionKey: false, timestamps: true });
+    isVerify: {
+        type: Boolean,
+        default: false,
+    },
+    verifyTokenEmail: {
+        type: String,
+        default: randomUUID(),
+    }
+},
+{ versionKey: false, timestamps: true });
 
 userSchema.pre('save', async function (next) {
     if (this.isModified('password')) {
